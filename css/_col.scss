@@ -1,0 +1,51 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+a{
+    text-decoration: none;
+}
+ul,li{
+    list-style: none;
+}
+.row{
+    overflow:hidden;
+}
+%float{
+    float: left;
+    position: relative;
+}
+$device-list:320px 360px 375px 412px 414px 750px;
+html{
+    font-size:100px;
+    
+}
+@font-face {
+    font-family: "iconfont";
+    src: url(../foots/iconfont.woff);
+}
+
+@each $name in $device-list{
+    @media (min-width:#{$name}){
+        html{
+            font-size:$name/750px*100px;
+        }
+        
+    }
+}
+body{
+    font-size: 14px;
+}
+$cols:12;
+
+
+@for $i from 1 through $cols {
+    .col-#{$i} {
+        @extend %float;
+    }
+}
+@for $i from 1 through $cols {
+    .col-#{$i} {
+        width: percentage($i/$cols);
+    }
+}

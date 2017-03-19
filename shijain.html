@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+<style>
+    .time{
+        height: 50px;
+    }
+    .time li{
+        width: 50px;height: 50px;
+        float: left;
+        list-style: none;
+        border:1px solid red;
+        text-align: center;line-height: 50px;
+    }
+</style>
+<ul class="time">
+    <li class="year"></li>
+    <li>年</li>
+    <li class="month"></li>
+    <li>月</li>
+    <li class="day"></li>
+    <li>日</li>
+    <li class="hour"></li>
+    <li>:</li>
+    <li class="minutes"></li>
+    <li>:</li>
+    <li class="second"></li>
+</ul>
+</body>
+<SCRIPT LANGUAGE = "JavaScript">
+	function getXhr() {
+		var xhr=null;
+		if (window.XMLHttpRequest){
+			xhr=new XMLHttpRequest()
+		}else{
+			xhr=new ActiveXObject("microsoft.XMLHttp");
+		}
+		return xhr;
+	}
+	// var xmlhttp = new ActiveXObject("MSXML2.XMLHTTP.3.0");
+	setInterval(function(){
+		var xmlhttp = getXhr();
+		xmlhttp.open("GET", "api.php?url=http://bjtime.cn", false);
+		xmlhttp.setRequestHeader("If-Modified-Since", "bjtime");
+		xmlhttp.send();
+		var dateStr = xmlhttp.getResponseHeader("Date");
+		var date = new Date(dateStr);
+		var year = date.getFullYear();
+		var year2=document.getElementsByClassName("year")[0];
+		year2.innerHTML=year;
+		var month = date.getMonth() + 1;
+		var month2=document.getElementsByClassName("month")[0];
+		month2.innerHTML=month;
+		var date1 = date.getDate();
+		var date2=document.getElementsByClassName("day")[0];
+		date2.innerHTML=date1;
+		var hour = date.getHours();
+		var hour2=document.getElementsByClassName("hour")[0];
+		hour2.innerHTML=hour;
+		var minutes = date.getMinutes();
+		var minutes2=document.getElementsByClassName("minutes")[0];
+		minutes2.innerHTML=minutes;
+		var second = date.getSeconds();
+		var second2=document.getElementsByClassName("second")[0];
+		second2.innerHTML=second;
+	},1000)
+	// alert(date + "  |  " + year + "年" + month + "月" + date1 + "日" + hour + "时" + minutes + "分" + second + "秒");
+</SCRIPT>
+
+</html>
